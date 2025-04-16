@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Payment - BikeCare Pro</title>
+  <link rel="stylesheet" href="assets/css/style.css" />
+  <script defer src="assets/js/script.js"></script>
+</head>
+<body>
+  <header>
+    <div class="logo">
+      <img src="assets/images/logo.png" alt="BikeCare Pro Logo" />
+    </div>
+    <h1>BikeCare Pro</h1>
+    
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="products.html">Products</a>        
+      <a href="contact.html">Contact</a>
+      <a href="cart.html">Cart</a>
+      <a href="login.html">Login</a>
+    </nav>
+  </header>
+
+  <main>
+    <section id="payment">
+      <h2>Choose Payment Method</h2>
+
+      <form id="payment-form">
+        <h3>Select Payment Method</h3>
+
+        <!-- Cash on Delivery Option -->
+        <div>
+          <input type="radio" id="cod" name="payment-method" value="cash-on-delivery" checked />
+          <label for="cod">Cash on Delivery (COD)</label>
+        </div>
+
+        <!-- UPI Option -->
+        <div>
+          <input type="radio" id="upi" name="payment-method" value="upi" />
+          <label for="upi">UPI Payment</label>
+        </div>
+
+        <!-- UPI QR Code Section (hidden by default) -->
+        <div id="upi-qrcode" style="display: none;">
+          <h3>Scan the UPI QR Code to Pay</h3>
+          <!-- Make sure the image path is correct -->
+          <img src="assets/images/qrcode.jpg.jpeg" alt="UPI QR Code" id="qrcode-image" />
+          <p>Scan the QR code using your UPI app to complete the payment.</p>
+        </div>
+
+        <!-- Submit Button -->
+        <button type="submit" id="confirm-payment">Proceed with Payment</button>
+      </form>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 BikeCare Pro. All rights reserved.</p>
+  </footer>
+
+  <script>
+    // Show UPI QR code when UPI option is selected
+    document.getElementById('payment-form').addEventListener('change', function(event) {
+      const paymentMethod = event.target.value;
+
+      if (paymentMethod === 'upi') {
+        document.getElementById('upi-qrcode').style.display = 'block';
+      } else {
+        document.getElementById('upi-qrcode').style.display = 'none';
+      }
+    });
+
+    // Handle form submission (confirmation)
+    document.getElementById('payment-form').addEventListener('submit', function(event) {
+      event.preventDefault();
+
+      const paymentMethod = document.querySelector('input[name="payment-method"]:checked').value;
+      
+      if (paymentMethod === 'cash-on-delivery') {
+        alert('Your order will be delivered with Cash on Delivery (COD) option.');
+      } else if (paymentMethod === 'upi') {
+        alert('Please scan the UPI QR code and complete the payment.');
+      } else {
+        alert('Please select a valid payment method.');
+      }
+
+      // After successful payment, clear the cart and order data from localStorage
+      localStorage.removeItem('cart');
+      localStorage.removeItem('order');
+      
+      // Redirect the user to the homepage
+      window.location.href = 'index.html'; // Redirect to home page
+
+      // At the end of your form submission (inside event listener)
+const cart = JSON.parse(localStorage.getItem('cart')) || [];
+const orders = JSON.parse(localStorage.getItem('orders')) || [];
+
+const newOrder = {
+  id: Date.now(),
+  items: cart,
+  date: new Date().toLocaleString()
+};
+
+orders.push(newOrder);
+localStorage.setItem('orders', JSON.stringify(orders));
+
+// Clear the cart after placing the order
+localStorage.removeItem('cart');
+
+// Redirect to order page
+window.location.href = 'order.html';
+
+  });
+  </script>
+</body>
+</html>

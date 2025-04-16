@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Your Account - BikeCare Pro</title>
+  <link rel="stylesheet" href="assets/css/style.css" />
+</head>
+<body>
+  <header>
+    <div class="logo">
+      <img src="assets/images/logo.png" alt="BikeCare Pro Logo" />
+    </div>
+    <h1>BikeCare Pro</h1>
+
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="products.html">Products</a>        
+      <a href="contact.html">Contact</a>
+      <a href="cart.html">Cart</a>
+      <a href="#" id="account-link">Account</a>
+    </nav>
+  </header>
+
+  <main>
+    <section>
+      <h2>Welcome to Your Account</h2>
+      <p id="welcome-text">Hello, User!</p>
+
+      <button onclick="window.location.href='order.html'" class="button">View Orders</button>
+      <button id="logout-btn" class="button" style="background-color: #dc3545;">Logout</button>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 BikeCare Pro. All rights reserved.</p>
+  </footer>
+
+  <script>
+    // Display user's name if logged in
+    const user = JSON.parse(localStorage.getItem('currentUser'));
+    if (user) {
+      document.getElementById('welcome-text').textContent = `Hello, ${user.username}!`;
+    } else {
+      // If no user is logged in, redirect to login page
+      alert('Please log in to access your account.');
+      window.location.href = 'login.html';
+    }
+
+    // Logout functionality
+    document.getElementById('logout-btn').addEventListener('click', () => {
+      localStorage.removeItem('loggedIn');
+      localStorage.removeItem('currentUser');
+      alert('You have been logged out.');
+      window.location.href = 'index.html';
+    });
+
+    // Update nav button to 'Account'
+    document.getElementById('account-link').textContent = 'Account';
+    document.getElementById('account-link').href = 'account.html';
+  </script>
+</body>
+</html>

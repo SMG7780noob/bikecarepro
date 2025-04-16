@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>BikeCare Pro</title>
+
+  <!-- Link to external CSS -->
+  <link rel="stylesheet" href="assets/css/style.css" />
+
+  <!-- Link to external JavaScript -->
+  <script src="assets/js/script.js" defer></script>
+
+  <!-- Optional: Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet" />
+</head>
+
+<body>
+  <header>
+    <!-- Fixed logo container -->
+    <div class="logo">
+      <img src="assets/images/logo.png" alt="BikeCare Pro Logo" />
+    </div>
+    <h1>BikeCare Pro</h1>
+
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="products.html">Products</a>        
+      <a href="contact.html">Contact</a>
+      <a href="cart.html">Cart</a>
+      <a href="login.html">Login</a>
+    </nav>
+  </header>
+
+  <main>
+    <section id="home">
+      <h2>Welcome to BikeCare Pro!</h2>
+      <p>Your trusted partner for all your bike accessory needs.</p>
+
+      <article>
+            <h2>SOME BASIC INFO</h2>
+            <h2>Bike Maintenance Tips</h2>        
+            
+       </article>
+        <article>
+            
+            <p>Having the right tools can make all the difference in bike maintenance.</p>
+            <p> Brakes: Inspect brake pads for wear and ensure they are working properly. </p>
+            <p>   Drivetrain: Clean and lubricate the chain regularly, and check for any signs of wear or damage. </p>
+            <p> Regular Service: Have your bike serviced by a professional mechanic periodically. </p>
+            <p> Storage: Store your bike in a dry place to prevent rust and corrosion. </p>
+            <p>Engine Maintenance: If your bike has an engine, ensure regular oil changes and proper air filter maintenance.</p> 
+            <p>Clutch Adjustment: If applicable, adjust the clutch properly to ensure smooth shifting. </p>
+        </article>
+
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 BikeCare Pro. All rights reserved.</p>
+  </footer>
+
+
+  <<script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const isLoggedIn = localStorage.getItem('loggedIn');
+      const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+      const navLinks = document.querySelectorAll('nav a');
+  
+      navLinks.forEach(link => {
+        if (link.textContent === 'Login') {
+          if (isLoggedIn === 'true' && currentUser) {
+            link.textContent = 'Account';
+            link.href = 'account.html';
+          }
+        }
+      });
+    });
+  </script>
+  
+  
+</body>
+</html>

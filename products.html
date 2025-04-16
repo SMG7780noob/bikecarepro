@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Products | BikeCare Pro</title>
+
+  <!-- Link to external CSS -->
+  <link rel="stylesheet" href="assets/css/style.css" />
+
+  <!-- Link to external JavaScript -->
+  <script src="assets/js/script.js" defer></script>
+
+  <!-- Optional: Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet" />
+</head>
+
+<body>
+  <header>
+    <div class="logo">
+      <img src="assets/images/logo.png" alt="BikeCare Pro Logo" />
+    </div>
+    <h1>BikeCare Pro</h1>
+
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="products.html">Products</a>        
+      <a href="contact.html">Contact</a>
+      <a href="cart.html">Cart</a>
+      <a href="login.html">Login</a>
+    </nav>
+    </nav>
+  </header>
+
+  <main>
+    <section id="products">
+      <h2>Our Products</h2>
+
+      <div class="product-list">
+        <!-- Product 1 -->
+        <div class="product-item">
+          <img src="assets/images/microfibre.jpg" alt="Microfiber Towel" class="product-image" />
+          <h3>Microfiber Towel</h3>
+          <p>Super absorbent and scratch-free finish for your bike.</p>
+          <p class="price">$10.00</p>
+          <input type="number" id="qty-microfibre" value="1" min="1" />
+          <button class="add-to-cart" onclick="addToCart('Microfiber Towel', 10, 'qty-microfibre')">Add to Cart</button>
+        </div>
+
+        <!-- Product 2 -->
+        <div class="product-item">
+          <img src="assets/images/chainlube.jpg" alt="Chain Lube" class="product-image" />
+          <h3>Chain Lube</h3>
+          <p>Keep your chain lubricated.</p>
+          <p class="price">$15.00</p>
+          <input type="number" id="qty-chainlube" value="1" min="1" />
+          <button class="add-to-cart" onclick="addToCart('Chain Lube', 15, 'qty-chainlube')">Add to Cart</button>
+        </div>
+
+        <!-- Product 3 -->
+        <div class="product-item">
+          <img src="assets/images/chainclean.jpg" alt="Chain Clean" class="product-image" />
+          <h3>Chain Clean</h3>
+          <p>Keep your chain cleaned.</p>
+          <p class="price">$12.00</p>
+          <input type="number" id="qty-chainclean" value="1" min="1" />
+          <button class="add-to-cart" onclick="addToCart('Chain Clean', 12, 'qty-chainclean')">Add to Cart</button>
+        </div>
+
+        <!-- Product 4 -->
+        <div class="product-item">
+          <img src="assets/images/polishcream.jpg" alt="Polish Cream" class="product-image" />
+          <h3>Polish Cream</h3>
+          <p>Keep your bike polished and fully shine.</p>
+          <p class="price">$20.00</p>
+          <input type="number" id="qty-polishcream" value="1" min="1" />
+          <button class="add-to-cart" onclick="addToCart('Polish Cream', 20, 'qty-polishcream')">Add to Cart</button>
+        </div>
+
+        <!-- Product 5 -->
+        <div class="product-item">
+          <img src="assets/images/toolkit.jpg" alt="Tool Kit" class="product-image" />
+          <h3>Tool Kit</h3>
+          <p>For any work, get the tool kit ready.</p>
+          <p class="price">$25.00</p>
+          <input type="number" id="qty-toolkit" value="1" min="1" />
+          <button class="add-to-cart" onclick="addToCart('Tool Kit', 25, 'qty-toolkit')">Add to Cart</button>
+        </div>
+
+        <!-- Product 6 -->
+        <div class="product-item">
+          <img src="assets/images/shampoo.jpg" alt="Biker Shampoo" class="product-image" />
+          <h3>Biker Shampoo</h3>
+          <p>For bike hygiene and cleaning the body.</p>
+          <p class="price">$18.00</p>
+          <input type="number" id="qty-shampoo" value="1" min="1" />
+          <button class="add-to-cart" onclick="addToCart('Biker Shampoo', 18, 'qty-shampoo')">Add to Cart</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 BikeCare Pro. All rights reserved.</p>
+  </footer>
+
+  <script>
+    // Function to add a product to the cart and store it in localStorage
+    function addToCart(productName, productPrice, qtyInputId) {
+      const quantity = parseInt(document.getElementById(qtyInputId).value);
+
+      // Check if the quantity is valid
+      if (quantity > 0) {
+        // Create a product object
+        const product = {
+          name: productName,
+          price: productPrice,
+          quantity: quantity,
+        };
+
+        // Get the current cart from localStorage (or create an empty array if it's the first time)
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+        // Check if the product is already in the cart
+        const existingProduct = cart.find(item => item.name === productName);
+        if (existingProduct) {
+          // If the product already exists, update its quantity
+          existingProduct.quantity += product.quantity;
+        } else {
+          // Otherwise, add the new product to the cart
+          cart.push(product);
+        }
+
+        // Save the updated cart back to localStorage
+        localStorage.setItem('cart', JSON.stringify(cart));
+
+        // Alert the user that the product has been added
+        alert(`${quantity} x ${productName} added to the cart!`);
+      } else {
+        alert("Please select a valid quantity.");
+      }
+    }
+  </script>
+
+<<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const isLoggedIn = localStorage.getItem('loggedIn');
+    const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    const navLinks = document.querySelectorAll('nav a');
+
+    navLinks.forEach(link => {
+      if (link.textContent === 'Login') {
+        if (isLoggedIn === 'true' && currentUser) {
+          link.textContent = 'Account';
+          link.href = 'account.html';
+        }
+      }
+    });
+  });
+</script>
+
+
+</body>
+</html>

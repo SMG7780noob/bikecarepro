@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cart - BikeCare Pro</title>
+  <link rel="stylesheet" href="assets/css/style.css" />
+  <script defer src="assets/js/script.js"></script>
+</head>
+<body>
+  <header>
+    <div class="logo">
+      <img src="assets/images/logo.png" alt="BikeCare Pro Logo" />
+    </div>
+    <h1>BikeCare Pro</h1>
+
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="products.html">Products</a>        
+      <a href="contact.html">Contact</a>
+      <a href="cart.html">Cart</a>
+      <a href="login.html">Login</a>
+    </nav>
+  </header>
+
+  <main>
+    <section id="cart">
+      <h2>Your Cart</h2>
+      <div id="cart-items"></div>
+      
+      <!-- Proceed to Checkout Button -->
+      <a href="checkout.html" class="proceed-checkout-button" id="proceed-checkout" onclick="handleCheckout(event)">Proceed to Checkout</a>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 BikeCare Pro. All rights reserved.</p>
+  </footer>
+
+  <script>
+    // Function to display the cart from localStorage
+    function displayCart() {
+      const cart = JSON.parse(localStorage.getItem('cart')) || [];
+      const cartItemsDiv = document.getElementById('cart-items');
+      cartItemsDiv.innerHTML = '';  // Clear the existing cart content
+
+      if (cart.length === 0) {
+        cartItemsDiv.innerHTML = "<p>Your cart is empty.</p>";
+      } else {
+        // Create HTML content for each product in the cart
+        cart.forEach((item, index) => {
+          const itemDiv = document.createElement('div');
+          itemDiv.classList.add('cart-item');
+          itemDiv.innerHTML = `
+            <p>${item.quantity} x ${item.name} - $${item.price * item.quantity}</p>
+            <button onclick="removeFromCart(${index})">Remove</button>
+          `;
+          cartItemsDiv.appendChild(itemDiv);
+        });
+      }
+    }
+
+    // Function to remove an item from the cart
+    function removeFromCart(index) {
+      let cart = JSON.parse(localStorage.getItem('cart')) || [];
+      cart.splice(index, 1);  // Remove the item at the specified index
+      localStorage.setItem('cart', JSON.stringify(cart));  // Save the updated cart
+      displayCart();  // Re-render the cart
+    }
+
+    // Function to handle checkout
+    function handleCheckout(event) {
+      const cart = JSON.parse(localStorage.getItem('cart')) || [];
+      if (cart.length === 0) {
+        event.preventDefault();  // Prevent the default action (redirect)
+        alert('Your cart is empty. Please add items to your cart before proceeding.');
+      }
+    }
+
+    // Call displayCart on page load
+    window.onload = displayCart;
+  </script>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const isLoggedIn = localStorage.getItem('loggedIn');
+    const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    const navLinks = document.querySelectorAll('nav a');
+
+    navLinks.forEach(link => {
+      if (link.textContent === 'Login') {
+        if (isLoggedIn === 'true' && currentUser) {
+          link.textContent = 'Account';
+          link.href = 'account.html';
+        }
+      }
+    });
+  });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Checkout - BikeCare Pro</title>
+  <link rel="stylesheet" href="assets/css/style.css" />
+  <script defer src="assets/js/script.js"></script>
+</head>
+<body>
+  <header>
+    <div class="logo">
+      <img src="assets/images/logo.png" alt="BikeCare Pro Logo" />
+    </div>
+    <h1>BikeCare Pro</h1>
+    
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="products.html">Products</a>        
+      <a href="contact.html">Contact</a>
+      <a href="cart.html">Cart</a>
+      <a href="login.html">Login</a>
+    </nav>
+  </header>
+
+  <main>
+    <section id="checkout">
+      <h2>Checkout</h2>
+      
+      <!-- Cart Items Display -->
+      <h3>Your Cart</h3>
+      <div id="cart-items">
+        <!-- Cart items will be dynamically populated here -->
+      </div>
+
+      <h3>Delivery Details</h3>
+      <form id="delivery-form">
+        <label for="delivery-name">Full Name:</label>
+        <input type="text" id="delivery-name" placeholder="Full Name" required />
+
+        <label for="delivery-address">Address:</label>
+        <input type="text" id="delivery-address" placeholder="Delivery Address" required />
+
+        <label for="delivery-phone">Phone Number:</label>
+        <input type="text" id="delivery-phone" placeholder="Phone Number" required />
+
+        <label for="payment-method">Payment Method:</label>
+        <select id="payment-method">
+          <option value="UPI">UPI</option>
+         <option value="cod">Cash on Delivery</option>
+        </select>
+
+        <button type="submit" id="proceed-to-pay">Proceed to Payment</button>
+      </form>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 BikeCare Pro. All rights reserved.</p>
+  </footer>
+
+  <script>
+    // Function to display cart items from localStorage
+    function displayCartItems() {
+      const cart = JSON.parse(localStorage.getItem('cart')) || [];
+      const cartItemsDiv = document.getElementById('cart-items');
+
+      if (cart.length === 0) {
+        cartItemsDiv.innerHTML = '<p>Your cart is empty.</p>';
+        return;
+      }
+
+      let cartContent = '<ul>';
+      cart.forEach(item => {
+        cartContent += `
+          <li>
+            ${item.quantity} x ${item.name} - $${item.price * item.quantity}
+          </li>
+        `;
+      });
+      cartContent += '</ul>';
+
+      cartItemsDiv.innerHTML = cartContent;
+    }
+
+    // Function to handle form submission for delivery and payment
+    document.getElementById('delivery-form').addEventListener('submit', function(event) {
+      event.preventDefault();
+
+      const name = document.getElementById('delivery-name').value;
+      const address = document.getElementById('delivery-address').value;
+      const phone = document.getElementById('delivery-phone').value;
+      const paymentMethod = document.getElementById('payment-method').value;
+
+      // Simple validation
+      if (!name || !address || !phone || !paymentMethod) {
+        alert('Please fill in all the fields.');
+        return;
+      }
+
+      // Save delivery information to localStorage (or send to server for processing)
+      const orderDetails = {
+        name,
+        address,
+        phone,
+        paymentMethod,
+        cartItems: JSON.parse(localStorage.getItem('cart')) || []
+      };
+
+      localStorage.setItem('order', JSON.stringify(orderDetails));
+
+      // Redirect to the appropriate payment page based on the payment method
+      if (paymentMethod === 'UPI') {
+        window.location.href = 'payment.html'; // Redirect to payment page for credit card (UPI)
+      } else if (paymentMethod === 'cod') {
+        window.location.href = 'order-summary.html'; // Redirect to order summary (COD)
+      }
+    });
+
+    // Display cart items when the page loads
+    window.onload = displayCartItems;
+  </script>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const isLoggedIn = localStorage.getItem('loggedIn');
+    const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    const navLinks = document.querySelectorAll('nav a');
+
+    navLinks.forEach(link => {
+      if (link.textContent === 'Login') {
+        if (isLoggedIn === 'true' && currentUser) {
+          link.textContent = 'Account';
+          link.href = 'account.html';
+        }
+      }
+    });
+  });
+</script>
+
+</body>
+</html>

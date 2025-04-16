@@ -1,0 +1,218 @@
+/* === Reset and Base Styling === */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f9f9f9;
+  color: #333;
+  line-height: 1.6;
+}
+
+/* === Header and Logo === */
+.header-content {
+  display: flex;
+  align-items: center;
+  gap: 15px; /* space between logo and text */
+}
+
+/* Make the logo smaller and keep it inline */
+header .logo img {
+  width: 60px;
+  height: auto;
+  display: block;
+  position: static; /* REMOVE absolute positioning */
+}
+
+/* === Navigation Bar === */
+nav {
+  background-color: #fff;
+  padding: 15px 0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+nav a {
+  color: #007bff;
+  text-decoration: none;
+  margin: 0 15px;
+  font-weight: bold;
+  transition: color 0.3s;
+}
+
+nav a:hover {
+  color: #0056b3;
+  text-decoration: underline;
+}
+
+/* === Main Section === */
+main {
+  padding: 20px;
+  text-align: center;
+}
+
+h1, h2 {
+  margin: 20px 0 10px;
+}
+
+p {
+  margin-bottom: 20px;
+}
+
+/* === Product Images === */
+.product-image {
+  max-width: 100%; /* Match product image size */
+  height: auto;
+  margin: 10px auto;
+  display: block;
+  border-radius: 8px;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+}
+
+/* === Product List === */
+.product-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+}
+
+.product-item {
+  background-color: #fff;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  max-width: 250px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.product-item .product-details {
+  margin-bottom: 10px;
+  text-align: left;
+  width: 100%;
+}
+
+.product-item h3 {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.product-item p {
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+
+.product-item input[type="number"] {
+  width: 60px;
+  padding: 5px;
+  margin-right: 10px;
+  font-size: 16px;
+  text-align: center;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+}
+
+.product-item .add-to-cart {
+  padding: 10px 20px; /* Increase padding to make the button larger */
+  font-size: 16px; /* Increase the font size */
+  width: auto; /* Optional: set to auto or a specific width for consistent size */
+  height: 45px; /* Optional: set a specific height for the button */
+  background-color: #28a745; /* Example background color */
+  color: white; /* Text color */
+  border: none; /* Remove border */
+  border-radius: 5px; /* Optional: rounded corners */
+  cursor: pointer; /* Change cursor on hover */
+  transition: background-color 0.3s ease; /* Optional: smooth transition on hover */
+  display: inline-block;
+  margin-top: 10px;
+}
+
+.add-to-cart:hover {
+  background-color: #218838; /* Darker shade on hover */
+}
+
+/* === Footer === */
+footer {
+  text-align: center;
+  padding: 20px;
+  font-size: 0.9em;
+  color: #666;
+  background-color: #f1f1f1;
+  margin-top: 40px;
+}
+
+/* === Buttons (for forms) === */
+.button {
+  padding: 10px 20px;
+  background-color: #007bff;
+  border: none;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.button:hover {
+  background-color: #0056b3;
+}
+
+/* === Form Inputs === */
+input[type="text"],
+input[type="email"],
+input[type="password"],
+select {
+  padding: 10px;
+  width: 90%;
+  max-width: 400px;
+  margin: 10px auto;
+  display: block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+/* === Responsive Layout === */
+@media (max-width: 768px) {
+  nav a {
+      display: block;
+      margin: 25px 0;
+  }
+
+  .product-image {
+      max-width: 90%;
+  }
+
+  .product-item {
+    max-width: 90%; /* Allow for responsiveness on smaller screens */
+    text-align: left;
+  }
+
+  .product-item input[type="number"],
+  .product-item .add-to-cart {
+    width: 100%; /* Ensure buttons and inputs stretch full width */
+  }
+}
+
+/* === QR Code Image === */
+#upi-qrcode img {
+  max-width: 15%; /* Match product image size */
+  height: auto; /* Maintain aspect ratio */
+  display: block; /* Ensure it's a block element */
+  margin: 0 auto; /* Center the image horizontally */
+  border-radius: 8px; /* Optional: match the product image style */
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.1); /* Optional: add shadow similar to product images */
+}
+
+/* === QR Code Section === */
+#upi-qrcode {
+  text-align: center; /* Center the whole section */
+  padding: 20px;
+}
